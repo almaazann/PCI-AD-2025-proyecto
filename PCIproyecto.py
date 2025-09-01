@@ -9,6 +9,7 @@ ENTRADAS:
 los coeficientes
 
 PROCESOS
+0.-Definir las funcinoes para cada caso (reciclar variable) e importar librerias
 1.-PEDIR si es ecuacion de primer o segundo grado
 2.-SI es de primer grado:
     2.1.-PEDIR al usuario la forma en la que está escrita la ecuació
@@ -23,3 +24,83 @@ PROCESOS
 
 SALIDAS
 Valor de X o de las raíces/0's/X1 y x2"""
+
+import math
+import sympy as sp
+from sympy import Eq, solve, symbols
+
+#Aquí defino los procesos para ecuaciones cuadraticas, hay 3 tipos:
+#mixta(un coeficiente principal y un termino independiente)
+#pura(un coeficiente principal y un coeficiente de un termino lineal)
+#y la completa (Ax2 + Bx + C = =)
+
+#Ecuacion cuadratica de forma Ax2 + C = 0
+def ecuacion2Pura ():    
+    coefCuad = int(input('Digite el coeficiente del termino cuadrático: '))
+    coefIn = int(input('Digite el coeficiente de el termino independiente: '))
+    discriminante = (0-(4*coefCuad*coefIn))
+    if discriminante > 0:
+       r1 = (0 + math.sqrt(discriminante))/(2*coefCuad)
+       r2 = (0 - math.sqrt(discriminante))/(2*coefCuad)
+       print(f'Las raíces son {r1:.2f} y {r2:.2f}')
+       return None
+    else:
+        print('El resultado de las raíces son números imaginarios')
+        return None
+    
+#Ecuacion cuadratica de forma Ax2 + Bx = 0
+def ecuacion2Mixta():
+    coefCuad = int(input('Digite el coeficiente del termino cuadrático: '))
+    coefLin = int(input('Digite el coeficiente del termino lineal: '))
+    r1 = (-(coefLin) + coefLin)/(2*coefCuad)
+    r2 = (-(coefLin) - coefLin)/(2*coefCuad)
+    print(f'Las raices son {r1:.2f} y {r2:.2f}')
+    return None
+
+#Ecuacion cuadratica de forma completa Ax2 + Bx + C = 0
+def ecuacion2Completa():
+    coefCuad = int(input('Digite el coeficiente cuadratico: '))
+    coefLin = int(input('Digite el coeficiente del termino lineal: '))
+    coefIn = int(input('Digite el coeficiente de el termino independiente: '))
+    discriminante = (coefLin**2) - (4*coefCuad * coefIn)
+    if discriminante > 0:
+        r1 = (-coefLin + math.sqrt(discriminante))/(2*coefCuad)
+        r2 = (-coefLin - math.sqrt(discriminante))/(2*coefCuad)
+        print(f'Las raices son {r1:.2f} y {r2:.2f}')
+        return None
+    else:
+        print('Las raices son numeros imaginarios lol')
+        return None
+    
+
+#Aquí defino el proceso para la ecuacion normal
+def despejeX():
+    x = sp.symbols('x')
+    lado_izq = input('Digite el lado izquierdo de la ecuacion: ')
+    lado_der = input('Digite el lado derecho de la ecuacion: ')
+    ecuacion = Eq(eval(lado_izq), eval(lado_der))
+    solucion = solve(ecuacion, x)
+    
+    print(f'El despeje de X es: {solucion}')
+    return None
+
+
+apertura = int(input(print('Bienvenido a su calculadora de ecuaciones lineales y cuadraticas, digite que tipo \n' \
+'de ecuacion planea usar: \n' \
+'1.- Lineal' \
+'2.- Cuadratica')))
+
+if apertura == 1:
+    despejeX()
+elif apertura == 2:
+    opcion = int(input(print('Digite que tipo de ecuacion cuadratrica usara:' \
+    '1.Ax2 + Bx + C = 0' \
+    '2.Ax2 + Bx = 0' \
+    '3.Ax + C = 0 ')))
+    if opcion == 1:
+        ecuacion2Completa()
+    elif opcion == 2:
+        ecuacion2Mixta()
+    else:
+        ecuacion2Pura()
+ 
