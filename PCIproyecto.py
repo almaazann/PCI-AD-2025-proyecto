@@ -1,12 +1,13 @@
 #Aqui se realizara el proyecto de Pensamiento computacional 
 
-"""Algoritmo
+"""Algoritmo - Calculadora de ecuaciones cuadráticas, ecuaciones normales y promedio de calificaciones 
 
 ENTRADAS:
--Pedir al usuario determinar si es una ecuacion de primer o segundo grado
+-Pedir al usuario determinar si es una ecuacion de primer o segundo grado o si prefiere promediar sus calificaciones
 -En caso de ser de primer grado, pedir al usuario como está escrita la ecuacion
 -En caso de ser de segundo grado, pedir al usuario que forma tiene la ecuacion y pedir
 los coeficientes
+-En caso de ser promedio, pedir al usario cuantas calificaciones quiere promediar e invocar la función promedio
 
 PROCESOS
 0.-Definir las funcinoes para cada caso (reciclar variable) e importar librerias
@@ -20,6 +21,11 @@ PROCESOS
     3.2.-PEDIR al usuario los coeficientes
     3.3.-Llevar a cabo el calculo para el despeje de X
     3.4.-MOSTRAR el valor de las raíces
+4.-SINO: 
+    4.1.-PEDIR al usuario la cantidad de calificaciones que quiere promediar (si son 2, 3 o 4 materias)
+    4.2.-PEDIR al usuario cada calificacion
+    4.3.-INVOCAR la función promedio y hacer el calculo
+    4.4.-MOSTRAR el promedio
 
 
 SALIDAS
@@ -84,11 +90,20 @@ def despejeX():
     print(f'El despeje de X es: {solucion}')
     return None
 
+#Aquí defino el proceso para las calificaciones promedio
+def promedio(lista):
+    suma = 0
+    for numero in lista:
+        suma = suma + numero
+    return suma / len(lista)
+
 
 apertura = int(input(print('Bienvenido a su calculadora de ecuaciones lineales y cuadraticas, digite que tipo \n' \
-'de ecuacion planea usar: \n' \
-'1.- Lineal' \
-'2.- Cuadratica')))
+'de operación planea usar: \n' \
+'1.- Ecuacion lineal \n' \
+'2.- Ecuación cuadratica \n'
+'3.- Promedio de calificaciones \n'
+'R= ')))
 
 if apertura == 1:
     despejeX()
@@ -103,4 +118,25 @@ elif apertura == 2:
         ecuacion2Mixta()
     else:
         ecuacion2Pura()
+elif apertura == 3:
+    cantidad_Cal = int(input('Digite la cantidad de materias que desea promediar: '))
+    indice = 1
+    lista_cal =[]
+    while indice <= cantidad_Cal:
+        lista_cal.append(int(input(f'Digite el promedio de su materia numero {indice}: ')))
+        indice += 1
+    print(f'Su promedio es {promedio(lista_cal)}')
+    if promedio(lista_cal) > 70 and promedio(lista_cal) < 100:
+        print('Su promedio es aprobatorio =)')
+    elif promedio(lista_cal) < 70:
+        diferencia = 70 - promedio(lista_cal)
+        print(f'Su promedio es reprobatorio por {diferencia} puntos')
+    elif promedio(lista_cal) > 100:
+        print('Su promedio es irreal pues es mayor a 100, verifique sus calificaciones')
+
+
+
+
+        
+        
  
